@@ -1,0 +1,156 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    border:2px solid black;
+}
+
+body>div{
+    border:2px solid black;
+}
+
+.footer{
+    grid-row: 3/4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: min(2.2vw,1.2rem);
+    background-color: rgba(120,120,120,0.99);
+}
+
+.links{
+    display: flex;
+    width: max(5vw,4rem);
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+.header{
+    background-color: rgba(120,120,120,0.8);
+    text-align: center;
+}
+
+.main-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 71.42vh;
+
+}
+
+.main-menu>div{
+    
+    height: 45vh;
+    width: 20vw;
+}
+
+.main-menu table{
+    width: 20vw;
+    padding:1rem;
+    overflow-y: auto;
+}
+
+.hide{
+    color:transparent;
+}
+
+
+.main-menu .menu{
+    box-sizing: content-box;
+    border: 4vw solid rgba(204, 0, 255, 0.703);
+    border-top-style: groove;
+    border-left-style: groove;
+    background-color: transparent;
+    border-radius: 4vw;
+   
+
+}
+.main-menu .menu .box{
+    border:2vw solid rgba(255, 0, 0, 0.54);
+    background-color: rgba(255, 0, 0, 0.74);
+    border-bottom-style: groove;
+    border-right-style: groove;
+     width: 20vw;
+     height: 45vh;
+     display: flex;
+     flex-direction: column;
+     align-items:center;
+     font-size:
+}
+
+.main-menu .menu .box>div{
+    margin-top:2rem;
+    border-top:2px outset cyan;
+    border-left:2px outset cyan;
+    width: 100%;
+    text-align: center;
+    height: 3vh;
+    background-color: blue;
+    color:white;
+    font-weight: bolder;
+    font-size: min(2.2vw,1.2rem);
+    box-shadow: 2px 2px 6px 1px black;
+    transition: all 0.1s ease;
+}
+
+.main-menu .menu .box>div:hover{
+    box-shadow:2px 2px 6px 1px white;
+    border-top:4px groove cyan;
+    border-left:4px groove cyan;
+}
+
+
+body>video{
+    position: fixed;
+    z-index:-2;
+}
+
+.score-board{
+    font-size: min(2.2vw,1.2rem);
+    margin:3rem;
+    background-color: rgba(0, 38, 255, 0.749);
+    backdrop-filter: blur(2px);
+    border:6px solid rgba(0, 221, 255, 0.63);
+    border-radius: 1rem;
+}
+
+.score-board th{
+    background-color: rgba(179, 0, 255, 0.74);
+    border-bottom:1px solid  red;
+    border-right:1px solid  red;
+    border-bottom-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+    width: 30vw;
+    height: 2rem;
+    color: white;
+    text-shadow: 2px 2px 3px black;
+}
+
+.score-board td{
+    height: 2rem;
+    border-bottom:3px solid rgba(0, 251, 255, 0.821);
+    border-bottom-style: groove;
+    color:white;
+    font-weight: bold;
+}
+
+
+
+.score-board tr:hover{
+    background-color: rgba(179, 0, 255, 0.44);
+}
+
+
+
+
+
+/*text-shadow: 2px 2px;           GOOD EFFECt */
