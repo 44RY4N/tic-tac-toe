@@ -2,13 +2,16 @@
     margin:0;
     padding:0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
-body{
+.body{
     height: 100vh;
     display: grid;
-    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-rows: 1fr 2.5fr 2.5fr 1fr;
     border:2px solid black;
+    overflow: hidden;
+  
 }
 
 body>div{
@@ -16,13 +19,16 @@ body>div{
 }
 
 .footer{
-    grid-row: 3/4;
+    grid-row: 4/5;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: min(2.2vw,1.2rem);
     background-color: rgba(120,120,120,0.99);
+    transition:all 0.8s ease;
+    height: 15vh;
+    
 }
 
 .links{
@@ -35,16 +41,26 @@ body>div{
 
 
 .header{
+    grid-row: 1/2;
     background-color: rgba(120,120,120,0.8);
     text-align: center;
+    height: 14.1vh;
+    transition:all 0.8s ease;
 }
 
+.main{
+    grid-row: 2/4;
+   transition: all 0.8s ease;
+}
+
+
 .main-menu{
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 71.42vh;
-
+    transition: all 0.8s ease;
+ /*   display: none;    */                         /* CHANGEEEE HEREEEEEEEEEE */
 }
 
 .main-menu>div{
@@ -58,6 +74,7 @@ body>div{
     padding:1rem;
     overflow-y: auto;
 }
+    
 
 .hide{
     color:transparent;
@@ -71,9 +88,11 @@ body>div{
     border-left-style: groove;
     background-color: transparent;
     border-radius: 4vw;
+    margin-left:-6rem;
    
 
 }
+
 .main-menu .menu .box{
     border:2vw solid rgba(255, 0, 0, 0.54);
     background-color: rgba(255, 0, 0, 0.74);
@@ -84,7 +103,7 @@ body>div{
      display: flex;
      flex-direction: column;
      align-items:center;
-     font-size:
+     font-size:min(2.2vw,1.2rem);
 }
 
 .main-menu .menu .box>div{
@@ -100,7 +119,9 @@ body>div{
     font-size: min(2.2vw,1.2rem);
     box-shadow: 2px 2px 6px 1px black;
     transition: all 0.1s ease;
+    border-radius: 1rem;
 }
+    
 
 .main-menu .menu .box>div:hover{
     box-shadow:2px 2px 6px 1px white;
@@ -148,6 +169,269 @@ body>video{
 .score-board tr:hover{
     background-color: rgba(179, 0, 255, 0.44);
 }
+
+
+
+body.play .main-menu{
+   z-index:-1;
+   position: fixed;
+    bottom:0.48vh;
+    right:0.0009vw;
+   width: 100%;
+}   
+
+
+body.play .main-menu .score-board{
+    position: relative;
+    left:0.1vw;
+}
+
+body.play .header{
+    transition:all 1s ease;
+    height: 50vh;
+    background-color:rgba(120,120,120,1);
+}
+
+body.play .footer{
+    transition:all 1s ease;
+    height: 49.8vh;
+    
+}
+
+body.play .player-selection{
+   z-index:-1;
+   position: fixed;
+   top:14.5vh;
+    right:0.0009vw;
+   width: 100%;
+}   
+
+
+
+
+
+
+
+
+/* Main - MEnu ENDS HERE */
+
+
+
+
+/* player selection menu starts here */
+
+
+.player-selection{
+    content: "";
+    width: 100vw;
+    height: 100vh;
+    background: url("./media/back.png") no-repeat center / cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     display:none;                          /* CHANGEEEE HEREEEEEEEEEE */
+}
+
+
+.selection-box{
+    height: 60vh;
+    width: 32vw;
+    margin-bottom:28vh;
+    background-color:rgba(179, 0, 255, 0.84);
+    border-top:2vw groove rgba(179, 0, 255,0.4);
+    border-left:2vw groove rgba(179, 0, 255,0.4);
+    border-radius: 1rem;
+    transition: transform 0.2s ease;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap:wrap;
+    
+}
+
+.selection-box:hover{
+    box-shadow: 4px 4px 10px 4px rgba(77, 77, 77, 0.808);
+    transform: scale(1.03);
+    transition: transform 0.2s ease;
+}
+
+.player-one,.player-two{
+    height:26vh;
+    width: 12vw;
+    background-color: rgba(255, 0, 0, 0.74);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:2vh;
+    font-size: min(2.2vw,1.2rem);
+    overflow-X: hidden;
+    overflow-Y: hidden;
+    gap:2vh;
+    font-weight: bolder;
+    color:white;
+}
+
+
+.player-one.selected,.player-two.selected{
+    animation: light-wiggle ease 0.4s forwards;
+}
+
+
+
+
+
+@keyframes light-wiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.player-one{
+    border-top-left-radius: 5vw;
+    border-bottom:1vw groove rgba(253, 56, 56, 0.53);
+    border-right:0.5vw outset rgba(253, 56, 56, 0.53);
+}
+.player-two{
+    border-top-right-radius: 5vw;
+    border-bottom:1vw groove rgba(253, 56, 56, 0.53);
+    border-left:0.5vw inset rgba(253, 56, 56, 0.53);
+}
+
+.player-one>input,.player-two>input{
+    text-align: center;
+    background-color: rgba(253, 56, 56, 0.73);
+    color:white;
+    font-weight: bolder;
+}
+
+
+.select{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.select>div{
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    width: 3vw;
+    height: 3vw;
+    border: 0.2vw solid black;
+    border-radius: 0.5vw;
+}
+
+.start-button{
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.start-button .real{
+    width:12vw;
+    border:1rem groove rgb(26, 255, 0);
+    background-color: rgb(0, 255, 98);
+    border-radius: 1rem;
+    text-align: center;
+    height: 7vh;
+    font-size: min(3.2vw,2.2rem);
+    font-weight: bolder;
+    transition: all 0.6s ease;
+}
+
+.start-button .real:hover{
+    color:white;
+    background-color: black;
+    text-shadow: 3px 3px 3px 4px white;
+    border-color: white;
+    box-shadow: 2px 2px 4px 4px black;
+}
+
+
+.start-button .real:focus{
+    background-color: white;
+    color:black;
+}
+
+
+/* FOR PLAYER TWO AND PLAYER ONE CAUTION !!!*/
+
+.selection-box.circle .player-two .select >.Scross,.selection-box.circle .player-one .select >.Scircle,.selection-box.cross .player-two .select >.Scircle,.selection-box.cross .player-one .select >.Scross{
+    background-color: white;
+}
+.selection-box.circle .player-two .select >.Scircle,.selection-box.circle .player-one .select >.Scross,.selection-box.cross .player-two .select >.Scross,.selection-box.cross .player-one .select >.Scircle{
+    background-color: transparent;
+}
+.selection-box.circle .player-two .select >.Scross path,.selection-box.circle .player-one .select >.Scircle path,.selection-box.cross .player-two .select >.Scircle path,.selection-box.cross .player-one .select >.Scross path{
+   fill:black;
+}
+.selection-box.circle .player-two .select >.Scircle path,.selection-box.circle .player-one .select >.Scross path,.selection-box.cross .player-two .select >.Scross path,.selection-box.cross .player-one .select >.Scircle path{
+    fill:white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 3d animated spin text experimemt  */
+
+
+.animated3d {
+  font-size: 4rem;
+  color: #fff;
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* 3d animated spin text experimemt*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
