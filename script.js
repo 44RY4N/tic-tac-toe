@@ -1,5 +1,6 @@
 const playButton = document.querySelector("#play-button");
 const playButtonAI = document.querySelector("#play-button-AI");
+const optionButton = document.querySelector("#option-button");
 const body = document.querySelector("body");
 const vid = document.querySelector("video");
 let playerAI = false;
@@ -54,7 +55,113 @@ playButtonAI.addEventListener("click",()=>{
     
 });
 
+let optionMenu = document.createElement("div");
+    optionMenu.style.width = "30vw";
+    optionMenu.style.height = "50vh";
+    optionMenu.style.marginTop = "10vh";
+    optionMenu.style.backgroundColor = "rgba(174, 0, 255, 0.8)";
+    optionMenu.style.display = "flex";
+    optionMenu.style.flexDirection = "column";
+    optionMenu.style.borderRadius = "1rem"; 
+    optionMenu.style.border = "1rem outset rgba(174, 0, 255, 0.8)";
+    optionMenu.style.zIndex = "12";
+    optionMenu.style.justifyContent = "flex-start";
+    optionMenu.style.gap = "4rem";
+    optionMenu.style.padding = "3rem";
+    optionMenu.style.fontSize = "min(3.2vw,2.2rem)";
+    optionMenu.style.alignItems = "center";
 
+let themeOption = document.createElement("div");
+let theme = document.createElement("input");
+theme.type = "color";
+themeOption.textContent = "Current Theme";
+themeOption.style.display = "flex";
+themeOption.style.gap = "2rem";
+themeOption.style.backgroundColor = "rgba(253, 56, 56, 0.83)";
+themeOption.style.borderRadius = "1rem";
+themeOption.style.padding = "0.7rem";
+themeOption.style.border = "0.4rem inset rgba(253, 56, 56, 0.83)";
+theme.style.width = "3vw";
+theme.style.height = "3vw";
+theme.style.borderRadius = "1rem";
+theme.style.background = "transparent";
+
+theme.addEventListener("change",(e)=>{
+    let header = document.querySelector(".header");
+    let footer =  document.querySelector(".footer");
+
+    footer.style.backgroundColor = e.target.value;
+    header.style.backgroundColor = e.target.value;
+    header.style.opacity = "0.8";
+    footer.style.opacity = "0.99";
+})
+
+
+
+
+themeOption.appendChild(theme);
+optionMenu.appendChild(themeOption);
+
+let audioOption = document.createElement("div");
+let audio = document.createElement("input");
+audio.type = "checkbox";
+audioOption.textContent = "Mute Audio?";
+audioOption.style.display = "flex";
+audioOption.style.gap = "4rem";
+audioOption.style.backgroundColor = "rgba(253, 56, 56, 0.83)";
+audioOption.style.borderRadius = "1rem";
+audioOption.style.padding = "0.7rem";
+audioOption.style.border = "0.4rem inset rgba(253, 56, 56, 0.83)";
+audio.style.width = "3vw";
+audio.style.height = "3vw";
+audio.style.borderRadius = "2rem";
+audioOption.appendChild(audio);
+optionMenu.appendChild(audioOption);
+
+let exitOption = document.createElement("button");
+exitOption.textContent = "EXIT";
+exitOption.style.width = "7vw";
+exitOption.style.height = "3.5vw";
+exitOption.style.borderRadius = "1rem";
+exitOption.style.marginTop = "1rem";
+exitOption.style.border = "0.4rem inset rgba(30, 255, 0, 0.83)";
+exitOption.style.backgroundColor = "rgba(30, 255, 0, 0.83)";
+exitOption.style.transition = "all 0.4s ease";
+exitOption.addEventListener("mouseenter",()=>{
+
+    exitOption.style.backgroundColor = "rgba(25, 184, 4, 0.83)";
+    exitOption.style.border = "0.4rem inset rgba(131, 255, 114, 0.83)";
+    exitOption.style.transform = "scale(1.2)";
+})
+
+exitOption.addEventListener("mouseleave",()=>{
+
+    exitOption.style.backgroundColor = "rgba(30, 255, 0, 0.83)";
+    exitOption.style.border = "0.4rem inset rgba(30, 255, 0, 0.83)";
+    exitOption.style.transform = "scale(1)";
+})
+
+exitOption.addEventListener("click",()=>{
+    optionMenu.style.display = "none";
+    overlay.style.display = "none";
+})
+
+optionMenu.appendChild(exitOption);
+optionButton.addEventListener("click",()=>{
+    overlay.style.display = "flex";
+    optionMenu.style.display = "flex";
+    overlay.appendChild(optionMenu);
+
+})
+    overlay.addEventListener("click",(e)=>{
+         e.stopPropagation();
+        optionMenu.style.display = "none";
+        overlay.style.display = "none";
+    })
+
+optionMenu.addEventListener("click", (e) => {
+    e.stopPropagation();
+});
 
 //function to control game
 function initiateGame(){

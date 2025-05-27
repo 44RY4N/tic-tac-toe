@@ -60,6 +60,10 @@ body>div{
     transition:all 0.8s ease;
 }
 
+.header>h1{
+    font-size: 4vw;
+}
+
 .main{
     grid-row: 2/4;
    transition: all 0.8s ease;
@@ -105,9 +109,14 @@ body>div{
 
 }
 
+.main-menu .menu:hover{
+    animation: light-wiggle 8s ;
+}
+
 .main-menu .menu .box{
-    border:2vw solid rgba(255, 0, 0, 0.54);
+    border:2vw solid rgba(0, 31, 206, 0.54);
     background-color: rgba(255, 0, 0, 0.74);
+    background-color: transparent;
     border-bottom-style: groove;
     border-right-style: groove;
      width: 20vw;
@@ -116,15 +125,17 @@ body>div{
      flex-direction: column;
      align-items:center;
      font-size:min(2.2vw,1.2rem);
+     backdrop-filter: grayscale(100%);
+     gap:1rem;
 }
 
 .main-menu .menu .box>div{
     margin-top:2rem;
     border-top:2px outset cyan;
     border-left:2px outset cyan;
-    width: 100%;
+    width: 60%;
     text-align: center;
-    height: 3vh;
+    height: 4.7vh;
     background-color: blue;
     color:white;
     font-weight: bolder;
@@ -535,10 +546,11 @@ body.play .player-selection{
 /* 3d animated spin text experimemt  */
 
 
-.animated3d {
+.animate3d {
   font-size: 4rem;
+  display: flex;
   color: #fff;
-  text-shadow: 0 1px 0 #ccc,
+  -shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9,
                0 3px 0 #bbb,
                0 4px 0 #b9b9b9,
@@ -558,6 +570,12 @@ body.play .player-selection{
   to { transform: rotateY(360deg); }
 }
 
+.d1{
+    animation-delay: 0.4s;
+}
+.d2{
+    animation-delay: 0.8s;
+}
 /* 3d animated spin text experimemt*/
 
 
