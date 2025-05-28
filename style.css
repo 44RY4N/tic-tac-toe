@@ -397,10 +397,9 @@ body.play .player-selection{
     width: 100vw;
     height: 100vh;
     background-color: transparent ;
-    display: flex;
     display: none ;                                           /* AND HEREEE */
     justify-content: space-around;
-    
+    background: transparent;
 }
 
 .game>.gameTab,.game>.p1Tab,.game>.p2Tab{
@@ -412,6 +411,14 @@ body.play .player-selection{
     border-width: 1rem;
     border-color: rgba(179, 0, 255,0.4);
     font-size: min(3.2vw,2.2rem); 
+}
+
+.tabName {
+    background-color: rgba(255, 157, 0, 0.74);
+    border-radius: 1rem;
+    border: 0.5rem groove rgba(255, 157, 0, 0.74);
+    width: 10vw;
+    text-align: center;
 }
 
 .gameTab{

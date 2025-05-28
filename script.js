@@ -300,7 +300,8 @@ function generateSelection(){
 function playGame() {
 
     console.log("play game called again");
-
+    vid.style.display = "block";
+    vid.style.filter = "hue-rotate(150deg)";
     let ttt = document.querySelector(".gameTab .ttt");
     ttt.style.display = "grid";
     let hamburger = document.querySelector(".game .hamburger");
@@ -353,12 +354,15 @@ function playGame() {
         ttt.style.display = "none";
         setTimeout(()=>{
             body.classList.remove("play");          //EXIT
-        },1400)
+        },1800)
+
         setTimeout(()=>{
+            vid.style.filter = "hue-rotate(0deg)";
             game.style.display = "none";
             vid.style.display = "block";
             mainMenu.style.display = "flex";
-        },1100)
+        },1500)
+        
     })
 
 
@@ -685,7 +689,7 @@ function roundEnd(winner){
 
         retryButton3.addEventListener("click", () => {
 
-            ttt.style.display = "none";
+        ttt.style.display = "none";
 
         overlay.innerHTML = ""; // Clear previous content
         overlay.style.display = "none";
@@ -700,13 +704,15 @@ function roundEnd(winner){
         body.classList.add("play");
 
         setTimeout(()=>{
+            
             body.classList.remove("play");          //EXIT
-        },1400)
+        },1800)
         setTimeout(()=>{
             game.style.display = "none";
             vid.style.display = "block";
+            vid.style.filter = "hue-rotate(0deg)";
             mainMenu.style.display = "flex";
-        },1100)
+        },1500)
 
 
     });
