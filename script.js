@@ -153,11 +153,17 @@ optionButton.addEventListener("click",()=>{
     overlay.appendChild(optionMenu);
 
 })
-    overlay.addEventListener("click",(e)=>{
-         e.stopPropagation();
-        optionMenu.style.display = "none";
-        overlay.style.display = "none";
-    })
+function ohandleOverlay(e) {
+    e.stopPropagation();
+    optionMenu.style.display = "none";
+    overlay.style.display = "none";
+
+    overlay.removeEventListener("click", ohandleOverlay);
+}
+
+
+    overlay.addEventListener("click",ohandleOverlay);
+
 
 optionMenu.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -312,11 +318,17 @@ function playGame() {
         console.log("hamburder clicked")
         overlay.style.display = "block";
         sidebar.classList.remove("inactive");
-        overlay.addEventListener("click",()=>{
-            overlay.style.display = "none";
-            sidebar.classList.add("inactive");
-        })
+
+function ghandleOverlay(e) {
+    e.stopPropagation();
+    optionMenu.style.display = "none";
+    overlay.style.display = "none";
+
+    overlay.removeEventListener("click", ghandleOverlay);
+}
+overlay.addEventListener("click",ghandleOverlay);
     });
+    
 
     exitBar.addEventListener("click",()=>{
         overlay.style.display = "none";
@@ -395,8 +407,7 @@ function playGame() {
             const index = j + (3 * i);
             const oldBox = boxes[index];
             const newBox = oldBox.cloneNode(false); 
-            oldBox.replaceWith(newBox);
-            boxes[index] = newBox; 
+
 
             newBox.innerHTML = ``;
             console.log("initialez datasets and evnet listne");
@@ -410,62 +421,113 @@ function playGame() {
                 console.log("current permission");
                 console.log(permission);
 
-                if (!permission) return;
-                console.log("game click working");
-                console.log(e.target.dataset.filled);
+                
 
-                if (e.target.dataset.filled == "true") {
-                    console.log(" goes to if block???");
+                console.log("game click working");
+               console.log(`INitially  e.target.dataset.filled = ${e.currentTarget.dataset.filled}`);
+               console.log(`yahan currenTarget ye tha = ${e.currentTarget}`);
+               console.log(`current turn == ${turn}`);
+
+                if (!permission) {
+                    console.log(" No permission this returns");
+                    return;}
+                else if (e.currentTarget.dataset.filled == "true" && turn === "O" || e.currentTarget.dataset.filled == "true" && turn === "X" ) {
+                    console.log(" IF block filled condition true this returns");
                     return;
-                } else if (turn === "O") {
-                    console.log(" goes to else if not happenenin block???");
-                    e.target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>`;
-                    e.target.dataset.filled = "true";
+                } 
+                else if (turn === "O" && e.currentTarget.dataset.filled == "false")  {
+                    console.log("else case ran O wala");
+                    e.currentTarget.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>`;
+                    e.currentTarget.dataset.filled = "true";
                     turn = "X";
                     turnCounter++;
-                    board[e.target.dataset.indexI][e.target.dataset.indexJ] = "O";
+                    board[e.currentTarget.dataset.indexI][e.currentTarget.dataset.indexJ] = "O";
                     checkWin(board, "O", turnCounter);
+                    console.log(`e.target.dataset.filled = ${e.currentTarget.dataset.filled}`);
                     if(playerAI){
-                        console.log("INSIDE player AI block");
-                      HUMAN = p1Choice ;
+
+                        console.log(" Player AI ran");
+
+                    HUMAN = p1Choice ;
                       BOT = p2Choice;
+
+                    let temp = document.querySelector(`[data-index-i='${1}'][data-index-j='${1}']`)
+
+                        if(turnCounter == 1 && temp.dataset.filled == "false"){
+
+                            console.log(" beech wala IF RAN 1 1 ");
+                      board[1][1] = "X";
+                      temp.dataset.filled = "true"
+                      temp.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`;
+                      turnCounter++;
+                      turn = p1Choice;
+                      checkWin(board, "X", turnCounter);
+                      console.log(`e.target.dataset.filled AI ki taraf se = ${e.currentTarget.dataset.filled}`);
+                      console.log(`yahan currenTarget ye tha = ${e.currentTarget}`);
+                      return;
+                        }
+
+
+
+
+
+
+                        console.log("INSIDE player AI block");
+
                       let move =   findBestMove(board);
                       board[move.row][move.col] = "X";
-
-                      console.log(move);
-console.log(`Looking for element with row=${move.row}, col=${move.col}`);
-console.log([...document.querySelectorAll("[data-indexI]")].map(e => `${e.dataset.indexI},${e.dataset.indexJ}`));
-
-
                      let element = document.querySelector(`[data-index-i='${move.row}'][data-index-j='${move.col}']`);
 
 
                       console.log(`element is ${element}`);
 
                       element.dataset.filled = "true"
+                      console.log(`e.target.dataset.filled AI ki taraf se = ${element.dataset.filled}`);
                       element.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`;
                       turnCounter++;
                       turn = p1Choice;
                       checkWin(board, "X", turnCounter); 
+                      console.log(`e.target.dataset.filled player ka ye hai = ${e.currentTarget.dataset.filled}`);
+                      return;
                     }
-                } else if (turn === "X") {
-                    console.log(" else case ran toa dd");
-                    e.target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`;
-                    e.target.dataset.filled = "true";
+                } else if (turn === "X" && e.currentTarget.dataset.filled == "false") {
+
+
+                    console.log(" else case ran X wala");
+                    e.currentTarget.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`;
+                    e.currentTarget.dataset.filled = "true";
                     turn = "O";
                     turnCounter++;
-                    board[e.target.dataset.indexI][e.target.dataset.indexJ] = "X";
+                    board[e.currentTarget.dataset.indexI][e.currentTarget.dataset.indexJ] = "X";
 
                     checkWin(board, "X", turnCounter);
+                    console.log(`e.target.dataset.filled = ${e.currentTarget.dataset.filled}`);
 
                     if(playerAI){
-                      HUMAN = p1Choice ;
-                      BOT = p2Choice;
-                      let move =   findBestMove(board);
 
-                      console.log(move);
-                      console.log(`Looking for element with row=${move.row}, col=${move.column}`);
-console.log([...document.querySelectorAll("[data-indexI]")].map(e => `${e.dataset.indexI},${e.dataset.indexJ}`));
+                    HUMAN = p1Choice ;
+                    BOT = p2Choice;
+
+                        let temp = document.querySelector(`[data-index-i='${1}'][data-index-j='${1}']`)
+
+                        if(turnCounter == 1 && temp.dataset.filled == "false"){
+                      board[1][1] = "O";
+                      temp.dataset.filled = "true"
+                      temp.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>`;
+                      turnCounter++;
+                      turn = p1Choice;
+                      checkWin(board, "O", turnCounter);
+                      console.log(`e.target.dataset.filled AI KA ye hai  = ${e.currentTarget.dataset.filled}`);
+                      return;
+
+
+                        }
+
+
+
+
+
+                      let move =   findBestMove(board);
 
 
                       board[move.row][move.col] = "O";
@@ -480,6 +542,7 @@ console.log([...document.querySelectorAll("[data-indexI]")].map(e => `${e.datase
                       turnCounter++;
                       turn = p1Choice;
                       checkWin(board, "O", turnCounter); 
+                      console.log(`e.target.dataset.filled = ${e.currentTarget.dataset.filled}`);
                     }
 
                 }
@@ -503,9 +566,10 @@ console.log([...document.querySelectorAll("[data-indexI]")].map(e => `${e.datase
                       if(p2Choice == "O")
                       element.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>`;
                       else
-                      e.target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`;
+                      element.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`;
                       turnCounter++;
                       turn = p1Choice;
+                      console.log(`e.target.dataset.filled = ${e.currentTarget.dataset.filled}`);
                 
 
                 }
@@ -513,7 +577,8 @@ console.log([...document.querySelectorAll("[data-indexI]")].map(e => `${e.datase
                     console.log(`Best move: row ${bestMove.row}, col ${bestMove.col}`); 
             });
 
-
+             oldBox.replaceWith(newBox);
+            boxes[index] = newBox; 
         }
     }
 
@@ -572,6 +637,10 @@ function checkWin(board, player, tnum) {
 
 
 function roundEnd(winner){
+
+    overlay.replaceWith(overlay.cloneNode(true));
+overlay = document.querySelector(".overlay");
+
     roundNumber++;
     updateScore(winner);
     console.log("round has ended");
@@ -693,6 +762,7 @@ function roundEnd(winner){
 
         overlay.innerHTML = ""; // Clear previous content
         overlay.style.display = "none";
+
         p1Score = 0;
         p2Score = 0;
         let hamburger = document.querySelector(".game .hamburger");
@@ -717,7 +787,9 @@ function roundEnd(winner){
 
     });
 
-
+    retryMenu.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
     retryMenu.appendChild(winMessage);
     retryMenu.appendChild(copyTTT);
     retryMenu.appendChild(retryButton);
