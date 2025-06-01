@@ -48,14 +48,14 @@ A polished and animated version of the classic Tic-Tac-Toe game featuring multip
 
 ## 📦 Project Structure
 
-tic-tac-toe/
-├── index.html
-├── style.css
-├── script.js
-├── media/
-│ ├── bg-video.mp4
-│ └── back.png 
-└── README.md
+tic-tac-toe/                                                      
+├── index.html                                                              
+├── style.css                                                                        
+├── script.js                                                                          
+├── media/                                                                          
+│ ├── bg-video.mp4                                                                          
+│ └── back.png                                                                               
+└── README.md                                                                                      
 
 
 ---
